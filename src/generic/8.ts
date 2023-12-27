@@ -20,28 +20,20 @@
 
 // // Реалізуйте Params так, щоб унеможливити поле 'errors' з типу Form
 // type Params = Form;
-type FormParams = {
+
+type Errors = {
+  email?: string[];
+  firstName?: string[];
+  lastName?: string[];
+  phone?: string[];
+};
+
+type Form = {
   email: string | null;
   firstName: string | null;
   lastName: string | null;
   phone: string | null;
+  errors: Errors;
 };
 
-type FormWithEmptyErrorsParams = FormParams & {
-  errors: {
-    email?: string[];
-    firstName?: string[];
-    lastName?: string[];
-    phone?: string[];
-  };
-};
-
-type FormsWithError = {
-  formWithError: FormWithEmptyErrorsParams;
-  formWithNoError: FormParams;
-};
-function displayForm(
-  form: keyof FormsWithError,
-  errors: FormsWithError[typeof form]['errors']
-) {}
-export {};
+type Params = Omit<Form, 'errors'>;
